@@ -1,12 +1,7 @@
 package com.example.locationproducersvc.config;
 
-import com.azure.storage.blob.BlobClientBuilder;
-import com.azure.storage.blob.BlobContainerClient;
-import com.azure.storage.blob.BlobServiceClient;
-import com.azure.storage.blob.BlobServiceClientBuilder;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.context.annotation.Bean;
@@ -40,32 +35,5 @@ public class Config {
         props.put("sasl.jaas.config", saslJassConfig);
 
         return new ReactiveKafkaProducerTemplate<String, String>(SenderOptions.create(props));
-    }
-
-    @Bean
-    public BlobContainerClient getContainerForRead (@Value("${app.blob.connection-string}") final String connectionString,
-                                                     @Value("${app.blob.source.container-name}") final String containerName) {
-        BlobServiceClient blobServiceClient = new BlobServiceClientBuilder().connectionString(connectionString).buildClient();
-        return blobServiceClient.getBlobContainerClient(containerName);
-    }
-
-    @Bean
-    @Qualifier("sourceBlobContainer")
-    public BlobClientBuilder getContainerForDownload(@Value("${app.blob.connection-string}") final String connectionString,
-                                                @Value("${app.blob.source.container-name}") final String containerName) {
-        BlobClientBuilder client = new BlobClientBuilder();
-        client.connectionString(connectionString);
-        client.containerName(containerName);
-        return client;
-    }
-
-    @Bean
-    @Qualifier("archiveBlobContainer")
-    public BlobClientBuilder getContainerForArchive(@Value("${app.blob.connection-string}") final String connectionString,
-                                                    @Value("${app.blob.archive.container-name}") final String containerName) {
-        BlobClientBuilder client = new BlobClientBuilder();
-        client.connectionString(connectionString);
-        client.containerName(containerName);
-        return client;
     }
 }
