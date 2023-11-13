@@ -57,6 +57,15 @@
 			<artifactId>spring-kafka-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.kafka</groupId>
+			<artifactId>spring-kafka</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.projectreactor.kafka</groupId>
+			<artifactId>reactor-kafka</artifactId>
+			<version>1.2.2.RELEASE</version>
+		</dependency>
 	</dependencies>
 	<dependencyManagement>
 		<dependencies>
