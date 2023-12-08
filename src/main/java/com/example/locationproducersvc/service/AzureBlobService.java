@@ -48,7 +48,7 @@ public class AzureBlobService {
                     return blobAsyncClient
                             .upload(BinaryData.fromString(messageDetails.getMsg()))
                             .doOnSuccess(blockBlobItem -> log.info("Successfully uploaded in azure blob. URI created {}", blobAsyncClient.getBlobUrl()))
-                            .map(blockBlobItem -> blobAsyncClient.getBlobUrl()).map(x->messageDetails);
+                            .map(blockBlobItem -> blobAsyncClient.getBlobUrl()).map(x -> messageDetails);
                 }).onErrorResume(exception -> {
                     log.error("Upload to Azure blob failed with error {}", exception.getMessage());
                     return Mono.empty();
@@ -57,7 +57,7 @@ public class AzureBlobService {
 
 
     public Mono<String> delete(MessageDetails messageDetails) {
-        String fileName =messageDetails.getFileName();
+        String fileName = messageDetails.getFileName();
         return Mono.just(azureBlobConfig.blobSourceContainerClient().getBlobAsyncClient(fileName))
                 .flatMap(blobAsyncClient -> {
                     return blobAsyncClient

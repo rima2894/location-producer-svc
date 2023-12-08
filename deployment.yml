@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: location-producer-svc
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: location-producer-svc
+  template:
+    metadata:
+      labels:
+        app: location-producer-svc
+    spec:
+      containers:
+        - name: location-producer-svc
+          image: locationpocacr.azurecr.io/location-producer-svc:v1
+          ports:
+            - containerPort: 8086
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: location-producer-svc-service
+spec:
+  selector:
+    app: location-producer-svc
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8086
+  type: LoadBalancer
