@@ -7,7 +7,6 @@ import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.core.reactive.ReactiveKafkaProducerTemplate;
-import org.springframework.kafka.support.serializer.JsonSerializer;
 import reactor.kafka.sender.SenderOptions;
 
 import java.util.Map;
@@ -27,7 +26,6 @@ public class Config {
             KafkaProperties properties) {
         Map<String, Object> props = properties.buildProducerProperties();
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "pkc-6ojv2.us-west4.gcp.confluent.cloud:9092");
-        //props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "pkc-lzvrd.us-west4.gcp.confluent.cloud:9092");
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
         props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
         props.put("security.protocol", securityProtocol);

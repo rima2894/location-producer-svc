@@ -11,7 +11,7 @@ public class Controller {
 	@Autowired
 	private AzureBlobService azureBlobService;
 
-	@GetMapping("/loadJson")
+	@GetMapping("/loadLocationData")
 	public  Mono<String> loadJson()
 	{
 		 return azureBlobService.readExcelFromAzureBlobAndArchive();
