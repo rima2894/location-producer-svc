@@ -37,7 +37,7 @@ public class AzureBlobService {
                                 .flatMap(this::upload)
                                 .flatMap(this::delete)
                 )
-                .then(Mono.just("Upload and delete completed successfully"));
+                .then(Mono.just("Blob moved to archive successfully"));
     }
 
 
@@ -65,7 +65,7 @@ public class AzureBlobService {
                             .doOnSuccess(blockBlobItem -> log.info("Archiving successfully in azure blob. ", blobAsyncClient.getBlobUrl()))
                             .map(blockBlobItem -> blobAsyncClient.getBlobUrl());
                 }).onErrorResume(exception -> {
-                    log.error("Delete blob in Azure blob failed with error {}", exception.getMessage());
+                    log.error("Deletion in Azure blob failed with error {}", exception.getMessage());
                     return Mono.empty();
                 });
     }
